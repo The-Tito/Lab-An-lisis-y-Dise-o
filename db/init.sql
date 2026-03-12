@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS ingredients(
     name VARCHAR(50) NOT NULL UNIQUE,
     initial_stock INTEGER NOT NULL DEFAULT 0 CHECK (initial_stock >= 0),
     stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
-    active BOOLEAN DEFAULT TRUE,
+    active BOOLEAN DEFAULT TRUE
 );
 
 -- ============================================================
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS ingredients(
 CREATE TABLE IF NOT EXISTS saucer(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
-    price DECIMAL(12, 2) NOT NULL DEFAULT 0 CHECK (price >= 0),
+    price DECIMAL(12, 2) NOT NULL DEFAULT 0 CHECK (price >= 0)
 ); 
 
 -- ============================================================
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS ingredients_in_dish(
     id SERIAL PRIMARY KEY,
     saurce_id INTEGER NOT NULL REFERENCES saucer(id),
     ingredients_id INTEGER NOT NULL REFERENCES ingredients(id),
-    quantity DECIMAL(12, 2) NOT NULL DEFAULT 0 CHECK (quantity >= 0),
+    quantity DECIMAL(12, 2) NOT NULL DEFAULT 0 CHECK (quantity >= 0)
 );
 
 -- ============================================================
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS ingredients_in_dish(
 CREATE TABLE IF NOT EXISTS employees(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL
 );
 
 -- ============================================================
@@ -57,8 +57,9 @@ CREATE TABLE IF NOT EXISTS sales_record(
     id SERIAL PRIMARY KEY,
     saurce_id INTEGER NOT NULL REFERENCES saucer(id),
     portions INTEGER NOT NULL DEFAULT 0 CHECK (portions >= 0),
+    total DECIMAL(12, 2) NOT NULL DEFAULT 0 CHECK (total >= 0),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    employees_id INTEGER NOT NULL REFERENCES employees(id),
+    employees_id INTEGER NOT NULL REFERENCES employees(id)
 ); 
 
 -- ============================================================
