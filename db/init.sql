@@ -78,3 +78,28 @@ CREATE TABLE IF NOT EXISTS notifications(
 -- ============================================================
 -- Funciones
 -- ============================================================
+
+-- ============================================================
+-- FUNCION DE PORCIONES DISPONIBLES
+-- Esta funcion retorna la cantidad maxima de platillos que se
+-- puede realizar.
+-- Utilizada:
+-- Sera utilizada en el trigger de alerta de stock bajo
+-- ============================================================
+
+CREATE OR REPLACE FUNCTION fn_max_porciones_disponibles(p_platillo_id INT)
+RETURNS INTEGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_max_porciones INTEGER;
+BEGIN
+    SELECT 
+        COALESCE(FLOOR(MIN(i.stock / iid.quantity)), 0) INTO v_max_porciones
+    FROM ingredients_in_dish iid
+    JOIN ingredients i ON iid.ingredients_id = i.id
+    WHERE iid.saurce_id = p_platillo_id;
+
+    RETURN v_max_porciones;
+END;
+$$;

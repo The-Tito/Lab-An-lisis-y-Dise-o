@@ -1,5 +1,13 @@
 
+-- ============================================================
+-- VIEWS
+-- ============================================================
 
+-- ============================================================
+-- PLATILLOS QUE SE PUEDEN PREPARAR
+-- Este reporte calcula todos los platillos que son posibles a
+-- preparar.
+-- ============================================================
 CREATE OR REPLACE VIEW vw_dishes_can_prepared AS
 SELECT 
     s.name AS platillo,
@@ -14,6 +22,12 @@ GROUP BY s.id, s.name
 HAVING FLOOR(MIN(i.stock / iid.quantity)) > 0
 ORDER BY porciones_disponibles DESC;
 
+
+-- ============================================================
+-- PLATILLOS CON MAS VENTAS
+-- Este reporte obtiene todos los platillos y los ordena para 
+-- visualizar cual fue el que tuvo mas ventas.
+-- ============================================================
 
 CREATE OR REPLACE VIEW vw_bestsellers AS
 SELECT
